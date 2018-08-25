@@ -1,0 +1,7 @@
+SIFTWEBHOOK_APP_PREFIX="siftwebhook"
+SIFTWEBHOOK_LOCAL_FOLDER="/media/daocha/Data/docker-images"
+SIFTWEBHOOK_REMOTE_FOLDER="/home/daocha/data/docker-images"
+SIFTWEBHOOK_REMOTE_SERVER="daocha@mini"
+SIFTWEBHOOK_REMOTE_SERVER_RSA_KEY="/home/daocha/.ssh/id_rsa_mini"
+SIFTWEBHOOK_BASE_VERSION="latest"
+SIFTWEBHOOK_LOG_FOLDER="/media/data/logs"
