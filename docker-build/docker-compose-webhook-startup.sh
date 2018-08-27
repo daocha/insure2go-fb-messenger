@@ -4,7 +4,7 @@ basename="$(dirname $0)"
 cd $basename
 source ./envvars.txt
 
-app_prefix=$SIFTWEBHOOK_APP_PREFIX
+app_prefix=$SIFTCHATBOT_APP_PREFIX
 
 # remove existing containers and images
 echo "[Stopping containers: $app_prefix*]"

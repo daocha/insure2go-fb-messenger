@@ -33,7 +33,7 @@ save-all-image() {
     mkdir -p $folder
   fi
 
-  local ids=$(docker images siftwebhook\/* -aq)
+  local ids=$(docker images siftchatbot\/* -aq)
   local name safename tag
 
   for id in $ids; do

@@ -2,12 +2,12 @@ basename="$(dirname $0)"
 cd $basename
 source ./envvars.txt
 
-local_folder=$SIFTWEBHOOK_LOCAL_FOLDER
-remote_folder=$SIFTWEBHOOK_REMOTE_FOLDER
-remote_server=$SIFTWEBHOOK_REMOTE_SERVER
-rsa_key=$SIFTWEBHOOK_REMOTE_SERVER_RSA_KEY
-app_name="siftwebhook"
-app_image_name="$SIFTWEBHOOK_APP_PREFIX/$app_name"
+local_folder=$SIFTCHATBOT_LOCAL_FOLDER
+remote_folder=$SIFTCHATBOT_REMOTE_FOLDER
+remote_server=$SIFTCHATBOT_REMOTE_SERVER
+rsa_key=$SIFTCHATBOT_REMOTE_SERVER_RSA_KEY
+app_name="siftchatbot"
+app_image_name="$SIFTCHATBOT_APP_PREFIX/$app_name"
 
 # build apps
 echo "[Docker-compose buiding apps]"
@@ -19,7 +19,7 @@ echo "[Dump all images to folder $local_folder]"
 
 # transfer all images to server
 echo "[Transferring files to test server: $remote_server]"
-scp -i $rsa_key $local_folder/$SIFTWEBHOOK_APP_PREFIX/*.dim $remote_server:$remote_folder/$SIFTWEBHOOK_APP_PREFIX/
+scp -i $rsa_key $local_folder/$SIFTCHATBOT_APP_PREFIX/*.dim $remote_server:$remote_folder/$SIFTCHATBOT_APP_PREFIX/
 
 # transfer scripts to server
 scp -i $rsa_key ./docker-compose-webhook.yml $remote_server:$remote_folder/

@@ -7,7 +7,7 @@ build() {
 
   local app=$1
   local app_version=$2
-  local app_image_name="$SIFTWEBHOOK_APP_PREFIX/$1"
+  local app_image_name="$SIFTCHATBOT_APP_PREFIX/$1"
 
 
   docker build -f ../composer-rest-server/Dockerfile \

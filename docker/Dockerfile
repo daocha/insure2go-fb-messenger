@@ -17,9 +17,9 @@ LABEL sift.insure "Ray LI <ray@dcha.xyz>"
 # Reset npm logging to default level.
 ENV NPM_CONFIG_LOGLEVEL warn
 
-COPY ["./app.js", "./package.json", "/app/"]
+COPY ./chatbox /app/chatbox
 
-WORKDIR /app/
+WORKDIR /app/chatbox
 
 # Need to install extra dependencies for native modules.
 RUN deluser --remove-home node && \
@@ -33,7 +33,7 @@ RUN deluser --remove-home node && \
 USER app
 
 # Run supervisor to start the application.
-CMD [ "node", "/app/app.js" ]
+CMD [ "node", "/app/chatbox/app.js" ]
 
 # Expose port 1337
 EXPOSE 1337

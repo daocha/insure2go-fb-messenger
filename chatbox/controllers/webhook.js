@@ -1,19 +1,10 @@
-'use strict';
+const config = require('../config'),
+      request = require('request');
 
-// Imports dependencies and set up http server
-const
-  express = require('express'),
-  bodyParser = require('body-parser'),
-  request = require('request'),
-  app = express().use(bodyParser.json()); // creates express http server
-
-// Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
-
-const access_token = "EAADW8EZCdlMIBAM6CDJhisahlKdRyRbAyuOpmkyqZAWil76F005OkMKa5e0auKu0sX7JXjVmxaBLfcYKT2kXkKCHCYYk0ZAjH4sP9GZCKIpYzBlZB5X8o4b7FHvC6NpbhvZAn4l82ZBaHghDfr9BRFQcoSea6TQNsULhRtCyTFm8gZDZD";
+const access_token = config.PAGE_ACCESS_TOKEN;
 
 // Creates the endpoint for our webhook
-app.post('/webhook', (req, res) => {
+exports.initChat = function(req, res){
 
   let body = req.body;
 
@@ -32,12 +23,16 @@ app.post('/webhook', (req, res) => {
       let nlp = webhook_event.message.nlp;
       console.log("nlp="+JSON.stringify(nlp));
       let reply_text;
+      const cfd = 0.6;
+
       const sentiment = firstEntity(nlp, "sentiment");
+      const intent = firstEntity(nlp, "intent");
+      const isClaim = intent != null && intent.value == "Claim" && intent.confidence > cfd;
       const greeting = firstEntity(nlp, "greetings");
       const thanks = firstEntity(nlp, "thanks");
-      const cfd = 0.6;
-      if(sentiment && sentiment.value=="negative" && sentiment.confidence > cfd){
-        reply_text = "T_T I'm sorry to hear that.";
+
+      if(isClaim){
+        reply_text = "I'm sorry to hear that.T_T Do you want to proceed to claim process?";
       }else if(thanks && thanks.value=="true" && thanks.confidence > cfd){
         reply_text = ":) It's our pleasure!";
       }else if(greeting && greeting.value=="true" && greeting.confidence > cfd){
@@ -84,11 +79,11 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(404);
   }
 
-});
+};
 
 
 // Adds support for GET requests to our webhook
-app.get('/webhook', (req, res) => {
+exports.get = function(req, res){
 
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "testtoken.sift.insure"
@@ -113,7 +108,7 @@ app.get('/webhook', (req, res) => {
       res.sendStatus(403);
     }
   }
-});
+};
 
 function firstEntity(nlp, name) {
   return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];

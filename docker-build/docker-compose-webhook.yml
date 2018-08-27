@@ -1,9 +1,9 @@
 version: '3.7'
 
 services:
-  siftwebhook:
-    container_name: siftwebhook
-    image: siftwebhook/siftwebhook:latest
+  siftchatbot:
+    container_name: siftchatbot
+    image: siftchatbot/siftchatbot:latest
     build:
       context: ../
       dockerfile:  ./docker/Dockerfile
