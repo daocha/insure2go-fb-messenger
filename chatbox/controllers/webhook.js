@@ -47,9 +47,23 @@ exports.initChat = function(req, res){
         reply = {
           "messaging_type": "RESPONSE",
           "recipient": sender,
-          "message":{
-            "text": reply_text
-          }
+          "message": {
+            attachment: {
+              type: "template",
+              payload: {
+                  template_type: "button",
+                  text: reply_text,
+                  buttons: [{
+                      type: "web_url",
+                      url: "https://dev.fb.api.sift.insure/options.html",
+                      title: "Set preferences",
+                      webview_height_ratio: "compact",
+                      messenger_extensions: false
+                  }]
+              }
+            }
+          },
+          "filedata": "@/home/daocha/Desktop/test.jpg;type=image/jpg"
         };
       }
     });

@@ -10,6 +10,7 @@ var config_initialize = require('./config');
 
 config_initialize((config) => {
   var app = express();
+  app.use(express.static('public'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
